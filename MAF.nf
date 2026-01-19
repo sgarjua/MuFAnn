@@ -30,8 +30,10 @@ workflow {
     Channel
         .fromPath(params.input)
         .splitCsv(header: true, sep: '\t')
-        .map { row ->
-            tuple(row.sample_id, file(row.fasta))
+        .map { row -> 
+            def sample_id = row[0]
+            def fasta = row[1]
+            tuple(sample_id, file(fasta))
         }
         .view { row -> "ID=${row.sample_id} FILE=${row.fasta}" }
         .set { ch_samples }
