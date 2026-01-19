@@ -7,7 +7,7 @@ process run_fantasia {
     publishDir "${params.outdir}/${sample_id}", mode: 'copy'
 
     input:
-        tuple val(species), file(fasta)
+        tuple val(species), path(fasta)
 
     output:
         path "*"
@@ -19,7 +19,7 @@ process run_fantasia {
     python3 fantasia_pipeline.py \
         --serial-models \
         --embed-models prot_t5 \
-        ${fasta}
+        ${fasta.toAbsolutePath()}
     """
 }
 
@@ -29,7 +29,7 @@ workflow {
 
     ch_samples= Channel.fromPath(params.input)
                         .splitCsv(header: true)
-                        .map { row -> tuple(row.species, file(row.fasta)) }
+                        .map { row -> tuple(row.species, path(row.fasta)) }
 
     run_fantasia(ch_samples)
 }
