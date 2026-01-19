@@ -1,3 +1,5 @@
+nextflow.enable.dsl=2
+
 params.input = "./test/test.csv"
 params.fantasia_dir = "~/00_software/FantasiaLiteV0"
 params.outdir = "results"
