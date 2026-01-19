@@ -1,5 +1,5 @@
 params.input = "./test/test.csv"
-params.fantasia_dir = "/00_software/FANTASIA-Lite"
+params.fantasia_dir = "~/00_software/FANTASIA-Lite"
 params.outdir = "results"
 
 process run_fantasia {
