@@ -17,7 +17,7 @@ process run_fantasia {
 
     script:
     """
-    sample_id=${species}    cd ${params.fantasia_dir}
+    cd ${params.fantasia_dir}
 
     python3 fantasia_pipeline.py \
         --serial-models \
