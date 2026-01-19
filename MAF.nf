@@ -1,4 +1,4 @@
-params.input = "./test/test.tsv"
+params.input = "./test/test.csv"
 params.fantasia_dir = "/00_software/FANTASIA-Lite"
 params.outdir = "results"
 
@@ -29,7 +29,7 @@ workflow {
 
     Channel
         .fromPath(params.input)
-        .splitCsv(header: true, sep: '\t')
+        .splitCsv(header: true)
         .map { row -> 
             def sample_id = row[0]
             def fasta = row[1]
