@@ -33,7 +33,7 @@ workflow {
         .map { row -> 
             def sample_id = row[0]
             def fasta = row[1]
-            tuple(sample_id, file(fasta))
+            tuple(sample_id, fasta)
         }
         .view { row -> "ID=${row.sample_id} FILE=${row.fasta}" }
         .set { ch_samples }
