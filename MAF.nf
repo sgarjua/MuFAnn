@@ -13,7 +13,7 @@ process cpy_fasta {
     script:
     """
     mkdir -p ${params.fantasia_dir}/fasta_tmp
-    cp $fasta_path ${params.fantasia_dir}/fasta_tmp/${fasta}
+    cp $fasta ${params.fantasia_dir}/fasta_tmp/${fasta}
     """
 }
 
