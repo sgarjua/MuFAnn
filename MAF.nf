@@ -8,12 +8,12 @@ process cpy_fasta {
         tuple val(species), path(fasta_path), val(fasta)
 
     output:
-        tuple val(species), path("fasta_tmp/*"), emit: fantasia_input
+        tuple val(species), path("${params.fantasia_dir}/fasta_tmp/${fasta.getName()}")
 
     script:
     """
     mkdir -p ${params.fantasia_dir}/fasta_tmp
-    cp ${fasta_path} ${params.fantasia_dir}/fasta_tmp/${fasta.getName()}
+    cp $fasta_path ${params.fantasia_dir}/fasta_tmp/${fasta.getName()}
     """
 }
 
@@ -43,5 +43,5 @@ workflow {
                         .map { row -> tuple(row.species, file(row.fasta), row.fasta) }
                         .view()
 
-
+    ch_fantasia_input = cpy_fasta(ch_samples)
 }
