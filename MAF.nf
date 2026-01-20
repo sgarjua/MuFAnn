@@ -8,12 +8,12 @@ process cpy_fasta {
         tuple val(species), path(fasta_path), val(fasta)
 
     output:
-        tuple val(species), path("${params.fantasia_dir}/fasta_tmp/${fasta.getName()}")
+        tuple val(species), path("${params.fantasia_dir}/fasta_tmp/${fasta}")
 
     script:
     """
     mkdir -p ${params.fantasia_dir}/fasta_tmp
-    cp $fasta_path ${params.fantasia_dir}/fasta_tmp/${fasta.getName()}
+    cp $fasta_path ${params.fantasia_dir}/fasta_tmp/${fasta}
     """
 }
 
