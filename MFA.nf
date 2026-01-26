@@ -10,7 +10,6 @@ include { run_fantasia } from './modules/run_FANTASIA.nf'
 process run_diamond {
 
     publishDir "${params.outdir}/${species}", mode: 'copy'
-    dbname = db.tokenize('/').last().replaceAll(/\\.dmnd$/, '')
 
     input:
         tuple val(species), path(fasta), val(db), 
@@ -20,7 +19,8 @@ process run_diamond {
 
     script:
     """
-
+    dbname="${db.tokenize('/').last().replaceAll(/\\.dmnd$/, '')}"
+    
     mkdir -p ${params.outdir}/${species}
     diamond blastp --query $fasta --db $db --outfmt 6 --max-target-seqs 1 --evalue 1e-20 --out ${params.outdir}/${species}.\$dbname.o6.txt --threads 24 --sensitive
     """
