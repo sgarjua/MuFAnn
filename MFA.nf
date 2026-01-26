@@ -19,7 +19,7 @@ process run_diamond {
 
     script:
     """
-    python3 diamond blastp --query $fasta--db $db --outfmt 6 --max-target-seqs 1 --evalue 1e-20 --out ${params.outdir}/${species} --threads 24 --sensitive
+    diamond blastp --query $fasta--db $db --outfmt 6 --max-target-seqs 1 --evalue 1e-20 --out ${params.outdir}/${species} --threads 24 --sensitive
     """
 }
 
@@ -38,6 +38,6 @@ workflow {
     // run_fantasia(ch_fantasia_input)
 
     ch_dbs = Channel.of(params.dbsprot, params.dbtrembl)
-    ch_diamond = ch_samples.combine(ch_dbs)
+    ch_diamond = ch_samples.combine(ch_dbs).view()
     run_diamond(ch_diamond)
 }
