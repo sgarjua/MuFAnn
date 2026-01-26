@@ -35,7 +35,7 @@ workflow {
 
     ch_samples2= Channel.fromPath(params.input)
                         .splitCsv(header: true)
-                        .map { row -> tuple(row.species, file(row.fasta) }
+                        .map { row -> tuple(row.species, file(row.fasta)) }
 
     // ch_fantasia_input = cpy_fasta(ch_samples)
     // run_fantasia(ch_fantasia_input)
