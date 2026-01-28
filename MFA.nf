@@ -39,7 +39,7 @@ process run_diamond {
     script:
     """
     mkdir -p ${species}
-    diamond blastp --query $fasta --db $db --outfmt 6 --max-target-seqs 1 --evalue 1e-20 --out ${species}/${species}.${db.getName()}.o6.txt --threads 24 --sensitive
+    diamond blastp --query $fasta --db $db --outfmt 6 --max-target-seqs 1 --evalue 1e-20 --out ${species}/${species}.${db.getName()}.o6.txt --threads 60 --sensitive
     """
 }
 
