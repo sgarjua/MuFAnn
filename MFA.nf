@@ -34,7 +34,7 @@ process run_diamond {
         tuple val(species), path(fasta), path(db)
 
     output:
-        tuple val(species), path("${species}/${fasta}"), path("${species}/${species}.${db.getName()}.o6.txt")
+        tuple val(species), path(fasta), path("${species}/${species}.${db.getName()}.o6.txt")
 
     script:
     """
