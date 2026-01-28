@@ -51,7 +51,7 @@ process write_yaml {
     tuple val(species), path(fasta), path(trembl_tsv), path(sprot_tsv)
 
     output:
-    tuple path "config.yaml", val(species)
+    tuple path("config.yaml"), val(species)
 
     script:
     """
