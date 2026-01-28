@@ -34,7 +34,7 @@ process run_diamond {
         tuple val(species), path(fasta), path(db)
 
     output:
-        tuple val(species), path("$species/$fasta"), path("${species}/${species}.${db.getName()}.o6.txt")
+        tuple val(species), path(fasta), path("${species}/${species}.${db.getName()}.o6.txt")
 
     script:
     """
@@ -87,6 +87,23 @@ process write_yaml {
     """
 }
 
+process run_AHRD {
+
+    publishDir "${params.outdir}/${species}", mode: 'copy'
+
+    input:
+    path yaml_path
+
+    output:
+    path "${species}.proteins.funct_ahrd.tsv"
+
+    script:
+    """
+    java -Xmx${params.JAVA_XMX} -jar $params.AHRD_JAR $yaml_path
+
+    """
+}
+
 
 // ================= WORKFLOW DEFINITION ==================
 workflow {
@@ -103,7 +120,7 @@ workflow {
     // run_fantasia(ch_fantasia_input)
 
     ch_dbs = Channel.of(params.dbsprot, params.dbtrembl)
-    ch_diamond = ch_samples2.combine(ch_dbs).view()
+    ch_diamond = ch_samples2.combine(ch_dbs)
     ch_diamond_out = run_diamond(ch_diamond)
     grouped_ch = ch_diamond_out
                 .groupTuple(by: 0)
@@ -118,6 +135,6 @@ workflow {
                             sprot_tsv
                         )
                 }
-                .view()
-    write_yaml(grouped_ch)
+    yaml = write_yaml(grouped_ch)
+    run_AHRD(yaml)
 }
