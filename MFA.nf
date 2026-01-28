@@ -64,7 +64,6 @@ process write_yaml {
     reference_go_regex: '^UniProtKB\\t(?<shortAccession>[^\\t]+)\\t[^\\t]+\\t(?!NOT\\|)[^\\t]*\\t(?<goTerm>GO:\\d+)'
     prefer_reference_with_go_annos: true
     output: ${species}.proteins.funct_ahrd.tsv
-
     blast_dbs:
       swissprot:
         weight: 653
@@ -83,7 +82,6 @@ process write_yaml {
         blacklist: $params.BLACKLIST
         filter: $params.FILTER_TREMBL
         token_blacklist: $params.TOKEN_BLACKLIST
-
     EOF
     """
 }
