@@ -77,7 +77,7 @@ process write_yaml {
       trembl:
         weight: 904
         description_score_bit_score_weight: 2.590211
-        file: {trembl_tsv}
+        file: $trembl_tsv
         database: $params.UNIPROT_TREMBL
         blacklist: $params.BLACKLIST
         filter: $params.FILTER_TREMBL
