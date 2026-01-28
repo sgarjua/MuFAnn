@@ -92,7 +92,7 @@ process run_AHRD {
     publishDir "${params.outdir}/${species}", mode: 'copy'
 
     input:
-    tuple path yaml_path, val(species)
+    tuple path(yaml_path), val(species)
 
     output:
     path "${species}.proteins.funct_ahrd.tsv"
