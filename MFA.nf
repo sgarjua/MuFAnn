@@ -119,5 +119,5 @@ workflow {
                         )
                 }
                 .view()
-    w//rite_yaml(grouped_ch)
+    //rite_yaml(grouped_ch)
 }
