@@ -41,8 +41,8 @@ workflow {
                         .splitCsv(header: true)
                         .map { row -> tuple(row.species, file(row.fasta)) }
 
-    // ch_fantasia_input = cpy_fasta(ch_samples)
-    // run_fantasia(ch_fantasia_input)
+    ch_fantasia_input = cpy_fasta(ch_samples)
+    run_fantasia(ch_fantasia_input)
 
     ch_dbs = Channel.of(params.dbsprot, params.dbtrembl)
     ch_diamond = ch_samples2.combine(ch_dbs)
