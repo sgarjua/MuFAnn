@@ -23,11 +23,21 @@ process run_fantasia {
         tuple val(species), path(fasta)
 
     output:
-        path "*"
+        path "fantasia_out"
 
     script:
     """
     cd ${params.fantasia_dir}
-    python3 fantasia_pipeline.py --serial-models --embed-models prot_t5 ${params.fantasia_dir}/fasta_tmp/${fasta.getName()}
+
+    python3 fantasia_pipeline.py \
+        --serial-models \
+        --embed-models prot_t5 \
+        --results-csv ${species}.fantasia_results.csv \
+        fasta_tmp/${fasta.getName()}
+
+    LAST_DIR=\$(ls -dt fantasia_* | head -n 1)
+
+    mkdir -p \$NXF_WORK/fantasia_out
+    mv \$LAST_DIR \$NXF_WORK/fantasia_out/
     """
 }
