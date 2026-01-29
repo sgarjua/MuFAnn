@@ -25,7 +25,7 @@ params.JAVA_XMX = "2g"   // sube a "8g" o más si lo necesitas
 // ================= MODULES ==================
 include { cpy_fasta } from './modules/run_FANTASIA.nf'
 include { run_fantasia } from './modules/run_FANTASIA.nf'
-include { run_diamond } from './modules/run_DIAMOND.nf'
+include { run_diamond } from './modules/run_HOMOLOGY.nf'
 include { write_yaml } from './modules/run_HOMOLOGY.nf'
 include { run_AHRD } from './modules/run_HOMOLOGY.nf'
 
