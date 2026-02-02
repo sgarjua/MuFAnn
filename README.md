@@ -38,7 +38,7 @@ Each module requires **external resources**, and paths to these resources must b
 1. Clone the repository:
 
 ```bash
-git clone <repo_url>
+git clone https://github.com/sgarjua/MuFASA.git
 cd MuFASA
 ```
 
