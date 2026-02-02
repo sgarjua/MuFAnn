@@ -3,7 +3,7 @@
 MuFASA is a **Nextflow pipeline** for protein functional annotation. It integrates **two independent annotation modules**:
 
 1. **Homology-based annotation** using **DIAMOND** and **AHRD**
-2. **Embedding-based annotation** using **FANTASIA Lite** (optional)
+2. **Embedding-based annotation** using **FANTASIA Lite**
 
 Each module requires **external resources**, and paths to these resources must be provided for the module to run.
 
@@ -118,7 +118,6 @@ Performs sequence similarity searches with DIAMOND and functional refinement wit
 ## Module 2: Embedding-based Annotation (FANTASIA Lite)
 
 Performs protein functional annotation using embedding models from FANTASIA Lite.
-**This module is optional**, but if enabled, it requires that FANTASIA Lite is installed and accessible in your environment.
 
 **Optional parameter:**
 
@@ -140,22 +139,9 @@ nextflow run main.nf \
     --UNIPROT_SPROT /path/to/sprot.fasta \
     --UNIPROT_TREMBL /path/to/trembl.fasta \
     --AHRD_JAR /path/to/ahrd.jar
-```
-
-* To also run FANTASIA with default embedding model:
-
-```bash
-nextflow run main.nf \
-    --input input.csv \
-    --outdir results \
-    --dbsprot /path/to/sprot.dmnd \
-    --dbtrembl /path/to/trembl.dmnd \
-    --GO_GAF /path/to/goa.gaf \
-    --UNIPROT_SPROT /path/to/sprot.fasta \
-    --UNIPROT_TREMBL /path/to/trembl.fasta \
-    --AHRD_JAR /path/to/ahrd.jar \
     --fantasia_models prot_t5
 ```
+
 
 ---
 
