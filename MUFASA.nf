@@ -127,7 +127,7 @@ params.input = "./test/test.csv"
 params.outdir = "results"
 
 // FANTASIA parameters
-params.fantasia_models = ["prot_t5"]
+params.fantasia_models = "prot_t5"
 
 // DIAMOND database paths
 params.dbsprot = "/data/shared_dbs/swissprot/uniprot_sprot_r2025_01.dmnd"
