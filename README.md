@@ -3,9 +3,9 @@
 MuFASA is a **Nextflow pipeline** for protein functional annotation. It integrates **two independent annotation modules**:
 
 1. **Homology-based annotation** using **DIAMOND** and **AHRD**
-2. **Embedding-based annotation** using **FANTASIA Lite**
+2. **Embedding-based annotation** using **FANTASIA Lite** (optional)
 
-Each module requires **external resources**, and paths to these resources must be provided.
+Each module requires **external resources**, and paths to these resources must be provided for the module to run.
 
 ---
 
@@ -28,7 +28,7 @@ Each module requires **external resources**, and paths to these resources must b
 * **Java** (for AHRD)
 * **Python 3** (for FANTASIA Lite)
 * **DIAMOND** installed and available in `$PATH`
-* **FANTASIA Lite** installed and accessible
+* **FANTASIA Lite** installed and accessible (optional)
 * Required databases and annotation files: SwissProt, TrEMBL, GOA, AHRD resources
 
 ---
@@ -38,7 +38,7 @@ Each module requires **external resources**, and paths to these resources must b
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/sgarjua/MuFASA.git
+git clone <repo_url>
 cd MuFASA
 ```
 
@@ -49,7 +49,7 @@ cd MuFASA
 conda install -c bioconda diamond
 ```
 
-3. Make sure Java and Python 3 are available:
+3. Ensure Java and Python 3 are available:
 
 ```bash
 java -version
@@ -118,12 +118,7 @@ Performs sequence similarity searches with DIAMOND and functional refinement wit
 ## Module 2: Embedding-based Annotation (FANTASIA Lite)
 
 Performs protein functional annotation using embedding models from FANTASIA Lite.
-
-**Required parameter:**
-
-| Parameter        | Description                                  |
-| ---------------- | -------------------------------------------- |
-| `--fantasia_dir` | Path to FANTASIA Lite installation directory |
+**This module is optional**, but if enabled, it requires that FANTASIA Lite is installed and accessible in your environment.
 
 **Optional parameter:**
 
@@ -144,8 +139,22 @@ nextflow run main.nf \
     --GO_GAF /path/to/goa.gaf \
     --UNIPROT_SPROT /path/to/sprot.fasta \
     --UNIPROT_TREMBL /path/to/trembl.fasta \
+    --AHRD_JAR /path/to/ahrd.jar
+```
+
+* To also run FANTASIA with default embedding model:
+
+```bash
+nextflow run main.nf \
+    --input input.csv \
+    --outdir results \
+    --dbsprot /path/to/sprot.dmnd \
+    --dbtrembl /path/to/trembl.dmnd \
+    --GO_GAF /path/to/goa.gaf \
+    --UNIPROT_SPROT /path/to/sprot.fasta \
+    --UNIPROT_TREMBL /path/to/trembl.fasta \
     --AHRD_JAR /path/to/ahrd.jar \
-    --fantasia_dir /path/to/FantasiaLite
+    --fantasia_models prot_t5
 ```
 
 ---
@@ -153,6 +162,7 @@ nextflow run main.nf \
 ## Notes
 
 * All paths to external resources are **mandatory** for the corresponding module to run.
-* Modules can be enabled/disabled in the workflow logic if needed.
+* FANTASIA Lite module is optional; if not needed, no extra paths are required.
+* Modules can be enabled/disabled in the workflow logic.
 * Use `-resume` to continue a previous execution.
 * Increase `--JAVA_XMX` for large proteomes if necessary.
