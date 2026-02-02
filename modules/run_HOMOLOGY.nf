@@ -12,7 +12,15 @@ process run_diamond {
     script:
     """
     mkdir -p ${species}
-    diamond blastp --query $fasta --db $db --outfmt 6 --max-target-seqs 1 --evalue 1e-20 --out ${species}/${species}.${db.getName()}.o6.txt --threads 60 --sensitive
+    diamond blastp \
+        --query $fasta \
+        --db $db \
+        --outfmt 6 \
+        --max-target-seqs $params.max_target_seqs \
+        --evalue $params.evalue \
+        --out ${species}/${species}.${db.getName()}.o6.txt \
+        --threads $params.threads \
+        --sensitive
     """
 }
 

@@ -5,10 +5,15 @@ params.outdir = "results"
 
 // FANTASIA parameters
 params.fantasia_dir = "$HOME/00_software/FantasiaLiteV0"
+params.fantasia_models = ["prot_t5"]
 
 // DIAMOND database paths
 params.dbsprot = "/data/shared_dbs/swissprot/uniprot_sprot_r2025_01.dmnd"
 params.dbtrembl = "/data/shared_dbs/swissprot/uniprot_trembl_r2025_01.dmnd"
+
+params.threads = 60
+params.evalue = 1e-20
+params.max_target_seqs = 1
 
 // AHRD parameters
 params.GO_GAF = "/data/shared_dbs/swissprot/goa_uniprot_all.gaf"

@@ -31,7 +31,7 @@ process run_fantasia {
 
     python3 fantasia_pipeline.py \
         --serial-models \
-        --embed-models prot_t5 \
+        --embed-models ${params.fantasia_models.join(' ')} \
         --results-csv ${species}.fantasia_results.csv \
         fasta_tmp/${fasta.getName()}
 
