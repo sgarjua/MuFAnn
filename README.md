@@ -38,8 +38,8 @@ Each module requires **external resources**, and paths to these resources must b
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/sgarjua/MuFASA.git
-cd MuFASA
+git clone https://github.com/sgarjua/MuFAnn.git
+cd MuFAnn
 ```
 
 2. Install dependencies:
@@ -63,7 +63,7 @@ python3 --version
 Run the pipeline:
 
 ```bash
-nextflow run main.nf --input <input.csv> --outdir <results/>
+nextflow run MUFANN.nf --input <input.csv> --outdir <results/>
 ```
 
 * Use `--help` for full parameter description:
@@ -130,7 +130,7 @@ Performs protein functional annotation using embedding models from FANTASIA Lite
 ## Example Execution
 
 ```bash
-nextflow run main.nf \
+nextflow run MUFANN.nf \
     --input input.csv \
     --outdir results \
     --dbsprot /path/to/sprot.dmnd \
