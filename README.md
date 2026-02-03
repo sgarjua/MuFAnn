@@ -1,173 +1,126 @@
 # MuFAnn — Multi-source Functional Annotation Pipeline
 
-MuFAnn is a **Nextflow pipeline** for comprehensive **protein functional annotation**. It helps researchers assign **biological functions** to protein sequences, which is essential for understanding genomes, metagenomes, and proteomes.
+MuFAnn is a **Nextflow pipeline** for comprehensive **protein functional annotation**. It assigns **biological functions** to protein sequences, essential for interpreting genomes, metagenomes, and proteomes.
 
-The pipeline combines **two complementary strategies**:
+The pipeline integrates **two complementary modules**:
 
 1. **Homology-based annotation (DIAMOND + AHRD)**
 
-   * Compares proteins to **SwissProt and TrEMBL databases** using DIAMOND.
-   * Refines functional descriptions with **AHRD** and assigns **Gene Ontology (GO) terms**.
-   * Provides **high-confidence annotations** for proteins with close homologs.
+   * Compares proteins to **SwissProt and TrEMBL** databases using DIAMOND.
+   * Refines functional descriptions with **AHRD**, assigning **Gene Ontology (GO) terms)**.
+   * Produces **high-confidence annotations** for proteins with close homologs.
 
-2. **Embedding-based annotation (FANTASIA Lite, optional)**
+2. **Embedding-based annotation (FANTASIA Lite)**
 
-   * Uses **machine-learning protein embeddings** to predict functions.
-   * Complements homology-based results for proteins with **few or no close homologs**.
-
-Each module requires **external resources**, and paths to these resources must be provided for the module to run.
+   * Uses **protein embeddings** from FANTASIA Lite to predict functional properties.
+   * Complements homology-based results for proteins with few or no close homologs.
 
 **Key outputs:**
 
 * Functional descriptions per protein
 * GO terms (molecular function, biological process, cellular component)
-* Standardized, curated results for downstream analysis
-
-**Applications:** genome and metagenome annotation, enzyme discovery, comparative genomics, and large-scale protein analysis.
-
+* Curated, standardized results ready for downstream analysis
 <img width="1357" height="616" alt="04f033ea-1810-400c-ba25-d3d6216e353b" src="https://github.com/user-attachments/assets/213cbd52-8128-4b0a-b466-af46c4de7ada" />
+---
+
+## Dependencies
+
+MuFASA requires the following software:
+
+* **Nextflow** ≥ 22.x — [Nextflow installation guide](https://www.nextflow.io/docs/latest/getstarted.html)
+* **Java** 11+ — required for **AHRD** — [Java downloads](https://www.oracle.com/java/technologies/javase-downloads.html)
+* **Python 3** — required for **FANTASIA Lite** — [Python downloads](https://www.python.org/downloads/)
+* **DIAMOND** ≥ 2.x — [DIAMOND GitHub](https://github.com/bbuchfink/diamond)
+* **FANTASIA Lite** — [FANTASIA GitHub](https://github.com/Rostlab/Fantasia)
+* **AHRD** — [AHRD GitHub](https://github.com/adrienloret/AHRD)
+
+### Databases and resources
+
+Each module requires external resources:
+
+1. **Homology-based annotation (DIAMOND + AHRD):**
+   Required databases and annotation files are detailed in the official documentation of [DIAMOND](https://github.com/bbuchfink/diamond) and [AHRD](https://github.com/adrienloret/AHRD).
+
+2. **Embedding-based annotation (FANTASIA Lite):**
+   Pre-trained models and input requirements are detailed in the [FANTASIA Lite documentation](https://github.com/Rostlab/Fantasia).
+
+> ⚠️ All resources referenced in the respective documentation are mandatory for the corresponding module to run successfully.
 
 ---
 
-## Table of Contents
+## Input
 
-* [Requirements](#requirements)
-* [Installation](#installation)
-* [Usage](#usage)
-* [Core Parameters](#core-parameters)
-* [Module 1: Homology-based Annotation](#module-1-homology-based-annotation)
-* [Module 2: Embedding-based Annotation](#module-2-embedding-based-annotation)
-* [Example Execution](#example-execution)
-* [Notes](#notes)
-
----
-
-## Requirements
-
-* **Nextflow** ≥ 22.x
-* **Java** (for AHRD)
-* **Python 3** (for FANTASIA Lite)
-* **DIAMOND** installed and available in `$PATH`
-* **FANTASIA Lite** installed and accessible
-* Required databases and annotation files: SwissProt, TrEMBL, GOA, AHRD resources
-
----
-
-## Installation
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/sgarjua/MuFAnn.git
-cd MuFAnn
-```
-
-2. Install dependencies:
-
-```bash
-# Example: DIAMOND
-conda install -c bioconda diamond
-```
-
-3. Ensure Java and Python 3 are available:
-
-```bash
-java -version
-python3 --version
-```
+* A CSV file describing the samples/proteomes to annotate (e.g., `test/test.csv`).
+* Each row must include at least: `species` and `fasta` file path.
 
 ---
 
 ## Usage
 
-Run the pipeline:
+### Required parameters
 
-```bash
-nextflow run MUFANN.nf --input <input.csv> --outdir <results/>
+| Parameter           | Description                                           |
+| ------------------- | ----------------------------------------------------- |
+| `--input`           | CSV file describing the samples/proteomes to annotate |
+| `--outdir`          | Output directory                                      |
+| `--dbsprot`         | Path to DIAMOND SwissProt database (.dmnd)            |
+| `--dbtrembl`        | Path to DIAMOND TrEMBL database (.dmnd)               |
+| `--GO_GAF`          | Gene Ontology annotation file (.gaf)                  |
+| `--UNIPROT_SPROT`   | SwissProt protein FASTA file                          |
+| `--UNIPROT_TREMBL`  | TrEMBL protein FASTA file                             |
+| `--BLACKLIST`       | AHRD description blacklist file                       |
+| `--FILTER_SPROT`    | AHRD SwissProt filter file                            |
+| `--FILTER_TREMBL`   | AHRD TrEMBL filter file                               |
+| `--TOKEN_BLACKLIST` | AHRD token blacklist file                             |
+| `--AHRD_JAR`        | Path to AHRD JAR file                                 |
+| `--fantasia_dir`    | Path to FANTASIA Lite installation directory          |
+
+### Optional parameters
+
+| Parameter           | Description                           | Default |
+| ------------------- | ------------------------------------- | ------- |
+| `--threads`         | Number of threads for DIAMOND         | 60      |
+| `--evalue`          | DIAMOND e-value threshold             | 1e-20   |
+| `--max_target_seqs` | Maximum hits per query                | 1       |
+| `--JAVA_XMX`        | Maximum Java heap size for AHRD       | 2g      |
+| `--fantasia_models` | List of embedding models for FANTASIA | prot_t5 |
+
+---
+
+## Quick Start with Test Data
+
+The repository includes a **test input CSV**:
+
+```
+test/test.csv
 ```
 
-* Use `--help` for full parameter description:
+Run the pipeline with **all required resources**:
 
 ```bash
-nextflow run main.nf --help
-```
-
-* Use `-resume` to continue a previous run.
-
----
-
-## Core Parameters (Required)
-
-| Parameter  | Description                                           |
-| ---------- | ----------------------------------------------------- |
-| `--input`  | CSV file describing the samples/proteomes to annotate |
-| `--outdir` | Output directory                                      |
-
----
-
-## Module 1: Homology-based Annotation (DIAMOND + AHRD)
-
-Performs sequence similarity searches with DIAMOND and functional refinement with AHRD.
-
-**Required parameters:**
-
-| Parameter           | Description                                |
-| ------------------- | ------------------------------------------ |
-| `--dbsprot`         | Path to DIAMOND SwissProt database (.dmnd) |
-| `--dbtrembl`        | Path to DIAMOND TrEMBL database (.dmnd)    |
-| `--GO_GAF`          | Gene Ontology annotation file (.gaf)       |
-| `--UNIPROT_SPROT`   | SwissProt protein FASTA file               |
-| `--UNIPROT_TREMBL`  | TrEMBL protein FASTA file                  |
-| `--BLACKLIST`       | AHRD description blacklist file            |
-| `--FILTER_SPROT`    | AHRD SwissProt filter file                 |
-| `--FILTER_TREMBL`   | AHRD TrEMBL filter file                    |
-| `--TOKEN_BLACKLIST` | AHRD token blacklist file                  |
-| `--AHRD_JAR`        | Path to AHRD JAR file                      |
-
-**Optional parameters:**
-
-| Parameter           | Description                     | Default |
-| ------------------- | ------------------------------- | ------- |
-| `--threads`         | Number of threads for DIAMOND   | 60      |
-| `--evalue`          | DIAMOND e-value threshold       | 1e-20   |
-| `--max_target_seqs` | Max hits per query              | 1       |
-| `--JAVA_XMX`        | Maximum Java heap size for AHRD | 2g      |
-
----
-
-## Module 2: Embedding-based Annotation (FANTASIA Lite)
-
-Performs protein functional annotation using embedding models from FANTASIA Lite.
-
-**Optional parameter:**
-
-| Parameter           | Description                     | Default |
-| ------------------- | ------------------------------- | ------- |
-| `--fantasia_models` | List of embedding models to use | prot_t5 |
-
----
-
-## Example Execution
-
-```bash
-nextflow run MUFANN.nf \
-    --input input.csv \
+nextflow run main.nf \
+    --input test/test.csv \
     --outdir results \
-    --dbsprot /path/to/sprot.dmnd \
-    --dbtrembl /path/to/trembl.dmnd \
-    --GO_GAF /path/to/goa.gaf \
-    --UNIPROT_SPROT /path/to/sprot.fasta \
-    --UNIPROT_TREMBL /path/to/trembl.fasta \
-    --AHRD_JAR /path/to/ahrd.jar
-    --fantasia_models prot_t5
+    --dbsprot /path/to/uniprot_sprot.dmnd \
+    --dbtrembl /path/to/uniprot_trembl.dmnd \
+    --GO_GAF /path/to/goa_uniprot_all.gaf \
+    --UNIPROT_SPROT /path/to/uniprot_sprot.fasta \
+    --UNIPROT_TREMBL /path/to/uniprot_trembl.fasta \
+    --BLACKLIST /path/to/blacklist_descline.txt \
+    --FILTER_SPROT /path/to/filter_descline_sprot.txt \
+    --FILTER_TREMBL /path/to/filter_descline_trembl.txt \
+    --TOKEN_BLACKLIST /path/to/blacklist_token.txt \
+    --AHRD_JAR /path/to/ahrd.jar \
+    --fantasia_dir /path/to/FantasiaLite
 ```
 
+* Results will be written in the `results/` folder.
+* Use `-resume` to continue a previous execution.
 
 ---
 
 ## Notes
 
-* All paths to external resources are **mandatory** for the corresponding module to run.
-* Modules can be enabled/disabled in the workflow logic.
-* Use `-resume` to continue a previous execution.
-* Increase `--JAVA_XMX` for large proteomes if necessary.
+* **All resources are mandatory** for the corresponding module.
+* Modules can be enabled/disabled via workflow logic.
+* Increase `--JAVA_XMX` for large proteomes.
