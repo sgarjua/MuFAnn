@@ -1,4 +1,4 @@
-# MuFASA — Multi-source Functional Annotation and Support Analysis
+# MuFAnn — Multi-source Functional Annotation
 
 MuFASA is a **Nextflow pipeline** for protein functional annotation. It integrates **two independent annotation modules**:
 
