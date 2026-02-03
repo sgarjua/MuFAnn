@@ -3,10 +3,10 @@
 // ================= HELP MESSAGE ==================
 if ( params.help ) {
     log.info """
-    MFA / MuFASA — Multi-Functional Annotation pipeline
+    MMuFAnn — Multi-Functional Annotation pipeline
     ===================================================
 
-    MFA integrates two independent annotation modules:
+    MuFAnn integrates two independent annotation modules:
       1) Homology-based annotation (DIAMOND + AHRD)
       2) Embedding-based annotation (FANTASIA Lite)
 
@@ -15,7 +15,7 @@ if ( params.help ) {
     --------------------------------------------------
     USAGE
     --------------------------------------------------
-    nextflow run main.nf \\
+    nextflow run MUFANN.nf \\
         --input  <input.csv> \\
         --outdir <results/>
 
@@ -99,7 +99,7 @@ if ( params.help ) {
     --------------------------------------------------
     EXAMPLE
     --------------------------------------------------
-    nextflow run main.nf \\
+    nextflow run MUFANN.nf \\
         --input input.csv \\
         --outdir results \\
         --dbsprot /path/to/sprot.dmnd \\
@@ -146,7 +146,7 @@ params.FILTER_SPROT = "/data/software/AHRD/test/resources/filter_descline_sprot.
 params.FILTER_TREMBL = "/data/software/AHRD/test/resources/filter_descline_trembl.txt"
 params.TOKEN_BLACKLIST = "/data/software/AHRD/test/resources/blacklist_token.txt"
 params.AHRD_JAR = "/data/software/AHRD/dist/ahrd.jar"
-params.JAVA_XMX = "2g"   // sube a "8g" o más si lo necesitas
+params.JAVA_XMX = "2g"   // Increase to ‘8g’ or more if you need it.
 
 
 // ================= MODULES ==================
