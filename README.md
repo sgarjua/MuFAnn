@@ -27,8 +27,8 @@ The pipeline integrates **two complementary modules**:
 
 MuFASA requires the following software:
 
+* **Java** 17+ — required for **AHRD** and **Nextflow** — [Java downloads](https://www.oracle.com/java/technologies/javase-downloads.html)
 * **Nextflow** ≥ 22.x — [Nextflow installation guide](https://www.nextflow.io/docs/latest/getstarted.html)
-* **Java** 11+ — required for **AHRD** — [Java downloads](https://www.oracle.com/java/technologies/javase-downloads.html)
 * **Python 3** — required for **FANTASIA Lite** — [Python downloads](https://www.python.org/downloads/)
 * **DIAMOND** ≥ 2.x — [DIAMOND GitHub](https://github.com/bbuchfink/diamond)
 * **FANTASIA Lite** — [FANTASIA GitHub](https://github.com/CBBIO/FANTASIA-Lite)
@@ -46,7 +46,7 @@ Each module requires external resources:
 
 > ⚠️ All resources referenced in the respective documentation are mandatory for the corresponding module to run successfully.
 
----
+
 
 ## Input
 
