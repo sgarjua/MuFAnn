@@ -31,18 +31,18 @@ MuFASA requires the following software:
 * **Java** 11+ — required for **AHRD** — [Java downloads](https://www.oracle.com/java/technologies/javase-downloads.html)
 * **Python 3** — required for **FANTASIA Lite** — [Python downloads](https://www.python.org/downloads/)
 * **DIAMOND** ≥ 2.x — [DIAMOND GitHub](https://github.com/bbuchfink/diamond)
-* **FANTASIA Lite** — [FANTASIA GitHub](https://github.com/Rostlab/Fantasia)
-* **AHRD** — [AHRD GitHub](https://github.com/adrienloret/AHRD)
+* **FANTASIA Lite** — [FANTASIA GitHub](https://github.com/CBBIO/FANTASIA-Lite)
+* **AHRD** — [AHRD GitHub](https://github.com/groupschoof/AHRD)
 
 ### Databases and resources
 
 Each module requires external resources:
 
 1. **Homology-based annotation (DIAMOND + AHRD):**
-   Required databases and annotation files are detailed in the official documentation of [DIAMOND](https://github.com/bbuchfink/diamond) and [AHRD](https://github.com/adrienloret/AHRD).
+   Required databases and annotation files are detailed in the official documentation of [DIAMOND](https://github.com/bbuchfink/diamond) and [AHRD](https://github.com/groupschoof/AHRD).
 
 2. **Embedding-based annotation (FANTASIA Lite):**
-   Pre-trained models and input requirements are detailed in the [FANTASIA Lite documentation](https://github.com/Rostlab/Fantasia).
+   Pre-trained models and input requirements are detailed in the [FANTASIA Lite documentation](https://github.com/CBBIO/FANTASIA-Lite).
 
 > ⚠️ All resources referenced in the respective documentation are mandatory for the corresponding module to run successfully.
 
