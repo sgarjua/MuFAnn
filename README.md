@@ -91,10 +91,8 @@ Clone the official repository and install its Python dependencies.
 
 ```bash
 git clone https://github.com/CBBIO/FANTASIA-Lite.git
-conda create -y -n fantasia python=3.9
-conda activate fantasia
-pip install -r FANTASIA-Lite/requirements.txt
-conda deactivate
+cd FANTASIA-Lite
+pip install -e .
 ```
 
 Repository:
