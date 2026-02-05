@@ -110,8 +110,25 @@ git clone https://github.com/groupschoof/AHRD.git
 
 AHRD is a Java application and does not require compilation.
 
-Repository:
-[https://github.com/groupschoof/AHRD](https://github.com/groupschoof/AHRD)
+> [!IMPORTANT]
+> **AHRD external resources are mandatory**
+>
+> MuFAnn does **not** download or configure AHRD resources automatically.
+> Users must manually obtain and provide paths to all AHRD-required files, including:
+>
+> - `ahrd.jar`
+> - Gene Ontology annotation file (GOA / `.gaf`)
+> - Reference protein FASTA files (SwissProt and TrEMBL)
+> - AHRD configuration files:
+>   - description blacklist
+>   - token blacklist
+>   - SwissProt and TrEMBL filter files
+>
+> These files are required for the homology-based annotation module to run.
+> Incorrect paths or missing resources will cause the pipeline to fail.
+>
+> Please consult the official AHRD documentation before use:  
+> https://github.com/groupschoof/AHRD
 
 
 
