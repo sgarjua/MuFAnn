@@ -123,7 +123,7 @@ if ( params.help ) {
 
 // ================== DEFAULT CONFIGURATION FOR MFA PIPELINE ==================
 // Define parameters
-params.input = "./test/test.csv"
+params.input = " "
 params.outdir = "results"
 
 // FANTASIA parameters
